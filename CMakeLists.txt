@@ -12,6 +12,7 @@
 # ============================================================== 3. cmake 설치
 # for windows : 사이트에서 설치 https://cmake.org 
 # for mac : brew install cmake
+# brew 설치 명령 : /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # for linux : sudo apt-get install cmake
 
 # ============================================================== 4. git 설치
@@ -39,14 +40,14 @@ include(Dependency.cmake)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DEP_INCLUDE_DIR})
 target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 # for windows
-target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
 # for mac
-#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
-#    "-framework OpenGL"
-#    "-framework Cocoa"
-#    "-framework IOKit"
-#    "-framework CoreVideo"
-#    )
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
+    "-framework OpenGL"
+    "-framework Cocoa"
+    "-framework IOKit"
+    "-framework CoreVideo"
+    )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
     WINDOW_NAME="${WINDOW_NAME}"
