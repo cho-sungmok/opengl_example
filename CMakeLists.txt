@@ -18,6 +18,14 @@
 # ============================================================== 4. git 설치
 # https://git-scm.com/ (윈도우는 설치해야함)
 # https://git-fork.com/
+#  (ubuntu) 
+# sudo apt-get install git
+# sudo apt-get install libxrandr-dev
+# sudo apt-get install libxinerama-dev
+# sudo apt-get install libxcursor-dev
+# sudo apt-get install libxi-dev
+# sudo apt-get install libmesa-dev
+# sudo apt-get install libgl-dev
 
 # ============================================================== 주의 사항
 # target_link_libraries / set(DEP_LIBS ${DEP_LIBS} spdlog 두군데 플랫폼별
@@ -42,12 +50,14 @@ target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 # for windows
 #target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
 # for mac
-target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
-    "-framework OpenGL"
-    "-framework Cocoa"
-    "-framework IOKit"
-    "-framework CoreVideo"
-    )
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
+#    "-framework OpenGL"
+#    "-framework Cocoa"
+#    "-framework IOKit"
+#    "-framework CoreVideo"
+#    )
+# for ubuntu
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS} X11)
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
     WINDOW_NAME="${WINDOW_NAME}"
