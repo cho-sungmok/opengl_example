@@ -1,12 +1,26 @@
-# cmake -Bbuild . -DCMAKE_BUILD_TYPE=Debug
-# cmake --build build
-# ./build/opengl_example
+# ============================================================== 1. Visual Code 설치 
+# C/C++
+# C/C++ Extension Pack
+# CMake
+# CMake Tool
 
-# f7 : build 
-# ctrl + f5 : build + execute
+# ============================================================== 2. 플랫폼별 컴파일러 설치 
+# for windows : visual studio 20xx c++ 설치
+# for mac : xcode 설치, sudo xcode-select --install / sudo xcode-select --reset
+# for linux : sudo apt-get update && sudo apt-get install gcc-9
 
-# if cmake can't run on Mac, command below : 
-# sudo xcode-select --reset
+# ============================================================== 3. cmake 설치
+# for windows : 사이트에서 설치 https://cmake.org 
+# for mac : brew install cmake
+# for linux : sudo apt-get install cmake
+
+# ============================================================== 4. git 설치
+# https://git-scm.com/ (윈도우는 설치해야함)
+# https://git-fork.com/
+
+# ============================================================== 주의 사항
+# target_link_libraries / set(DEP_LIBS ${DEP_LIBS} spdlog 두군데 플랫폼별
+
 cmake_minimum_required(VERSION 3.13)
 
 set(PROJECT_NAME opengl_example)
@@ -24,12 +38,15 @@ include(Dependency.cmake)
 # 우리 프로젝트에 include / lib 관련 옵션 추가
 target_include_directories(${PROJECT_NAME} PUBLIC ${DEP_INCLUDE_DIR})
 target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
-target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
-    "-framework OpenGL"
-    "-framework Cocoa"
-    "-framework IOKit"
-    "-framework CoreVideo"
-    )
+# for windows
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
+# for mac
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
+#    "-framework OpenGL"
+#    "-framework Cocoa"
+#    "-framework IOKit"
+#    "-framework CoreVideo"
+#    )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
     WINDOW_NAME="${WINDOW_NAME}"
