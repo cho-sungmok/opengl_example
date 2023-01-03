@@ -3,7 +3,7 @@
 
 int main(int argc, const char** argv)
 {
-    SPDLOG_INFO("Start program");
+    SPDLOG_INFO("Start opengl");
 
     SPDLOG_INFO("Initialize glfw");
     if(!glfwInit()) {
