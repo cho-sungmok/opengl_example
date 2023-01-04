@@ -40,6 +40,15 @@
 #        "cwd": "${workspaceFolder}"
 #    }
 #}
+
+# ============================================================== 탭 변경
+# 셋팅 열어서 ctrl(cmd) + ,
+#{
+#    "editor.tabSize": 4,
+#    "editor.insertSpaces": true,
+#    "editor.detectIndentation": false
+#}
+
 cmake_minimum_required(VERSION 3.13)
 
 set(PROJECT_NAME opengl_example)
@@ -48,6 +57,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(WINDOW_NAME "Hello, OpenGL!")
 set(WINDOW_WIDTH 960)
 set(WINDOW_HEIGHT 540)
+set(OS_WINDOW 0)
+set(OS_MAC 1)
+set(OS_UBUNTU 2)
 
 project(${PROJECT_NAME})
 add_executable(${PROJECT_NAME}
@@ -64,14 +76,14 @@ include(Dependency.cmake)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DEP_INCLUDE_DIR})
 target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 # for windows
-target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
 # for mac
-#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
-#    "-framework OpenGL"
-#    "-framework Cocoa"
-#    "-framework IOKit"
-#    "-framework CoreVideo"
-#    )
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
+    "-framework OpenGL"
+    "-framework Cocoa"
+    "-framework IOKit"
+    "-framework CoreVideo"
+    )
 # for ubuntu
 #target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS} X11)
 
@@ -79,6 +91,10 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
     WINDOW_NAME="${WINDOW_NAME}"
     WINDOW_WIDTH=${WINDOW_WIDTH}
     WINDOW_HEIGHT=${WINDOW_HEIGHT}
+    OS_WINDOW=${OS_WINDOW}
+    OS_MAC=${OS_MAC}
+    OS_UBUNTU=${OS_UBUNTU}
+    OS=${OS_MAC}
     )
 
 # Dependency들이 먼저 build 될 수 있게 관계 설정

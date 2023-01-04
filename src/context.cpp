@@ -37,7 +37,28 @@ void Context::Render()
     glDrawArrays(GL_POINTS, 0, 1);
 }
 
+#include <iostream>
+#include <stdio.h>
+#if (OS==OS_WINDOW)
+    #include <direct.h>
+#elif (OS==OS_MAC)
+    #include <filesystem>
+#endif
+
 Context::Context()
 {
+    if (__cplusplus == 202002L) std::cout << "C++20";
+    else if (__cplusplus == 201703L) std::cout << "C++17";
+    else if (__cplusplus == 201402L) std::cout << "C++14";
+    else if (__cplusplus == 201103L) std::cout << "C++11";
+    else if (__cplusplus == 199711L) std::cout << "C++98";
+    else std::cout << "pre-standard C++";
 
+    char curDir[1000];
+#if (OS==OS_WINDOW)
+    _getcwd(curDir, 1000);
+#elif (OS==OS_MAC)
+    getcwd(curDir, 1000);
+#endif
+    printf(" 현재 경로 %s\n", curDir);
 }

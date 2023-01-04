@@ -19,8 +19,8 @@ ExternalProject_Add(
     )
 # Dependency 리스트 및 라이브러리 파일 리스트 추가
 set(DEP_LIST ${DEP_LIST} dep_spdlog)
-set(DEP_LIBS ${DEP_LIBS} spdlog$<$<CONFIG:Debug>:d>)    # for windows
-#set(DEP_LIBS ${DEP_LIBS} spdlog)                       # for mac | ubuntu
+#set(DEP_LIBS ${DEP_LIBS} spdlog$<$<CONFIG:Debug>:d>)    # for windows
+set(DEP_LIBS ${DEP_LIBS} spdlog)                       # for mac | ubuntu
 
 # glfw
 ExternalProject_Add(

@@ -4,27 +4,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#if 0
-#include <iostream>
-void printCppVersion()
-{
-    if (__cplusplus == 202002L) std::cout << "C++20\n";
-    else if (__cplusplus == 201703L) std::cout << "C++17\n";
-    else if (__cplusplus == 201402L) std::cout << "C++14\n";
-    else if (__cplusplus == 201103L) std::cout << "C++11\n";
-    else if (__cplusplus == 199711L) std::cout << "C++98\n";
-    else std::cout << "pre-standard C++\n";
-}
-#include <stdio.h>
-#include <direct.h>
-void printCWD()
-{
-    char curDir[1000];
-    _getcwd(curDir,1000);
-    printf("현재 경로 %s\n", curDir);
-}
-#endif
-
 void OnFramebufferSizeChnage(GLFWwindow* window, int width, int height)
 {
     SPDLOG_INFO("framebuffer size changed: ({} x {})", width, height);
@@ -59,6 +38,9 @@ int main(int argc, const char** argv)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#if (OS==OS_MAC)
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     SPDLOG_INFO("Create glfw window");
     auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, nullptr, nullptr);
@@ -78,9 +60,6 @@ int main(int argc, const char** argv)
     //const GLubyte* glVersion = glGetString(GL_VERSION);
     auto glVersion = glGetString(GL_VERSION);
     SPDLOG_INFO("OpenGL context version: {}", *glVersion);
-#if 0
-    printCppVersion();
-#endif
 
     auto context = Context::Create();
     if(!context) {
@@ -99,8 +78,9 @@ int main(int argc, const char** argv)
         context->Render();
         glfwSwapBuffers(window);
     }
+	
     context.reset();
-    //context = nullptr;
+    context = nullptr;
 
     glfwTerminate();
     SPDLOG_INFO("Terminate");
