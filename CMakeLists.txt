@@ -27,9 +27,19 @@
 # sudo apt-get install libmesa-dev
 # sudo apt-get install libgl-dev
 
+# ============================================================== 5. glad 설치
+# 파이썬 설치(https://www.python.org/downloads/)
+
 # ============================================================== 주의 사항
 # target_link_libraries / set(DEP_LIBS ${DEP_LIBS} spdlog 두군데 플랫폼별
 
+# ==============================================================
+# 파일열기 처리시 현재 경로를 터미널 경로로 실행(.vscode/settings.json)
+#{
+#    "cmake.debugConfig": {
+#        "cwd": "${workspaceFolder}"
+#    }
+#}
 cmake_minimum_required(VERSION 3.13)
 
 set(PROJECT_NAME opengl_example)
@@ -40,7 +50,11 @@ set(WINDOW_WIDTH 960)
 set(WINDOW_HEIGHT 540)
 
 project(${PROJECT_NAME})
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    src/common.cpp src/common.h
+    src/shader.cpp src/shader.h
+    )
 
 include(Dependency.cmake)
 
@@ -48,7 +62,7 @@ include(Dependency.cmake)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DEP_INCLUDE_DIR})
 target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 # for windows
-#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
 # for mac
 #target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
 #    "-framework OpenGL"
@@ -57,7 +71,7 @@ target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 #    "-framework CoreVideo"
 #    )
 # for ubuntu
-target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS} X11)
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS} X11)
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
     WINDOW_NAME="${WINDOW_NAME}"
