@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-CLASS_PTR(Shader);
+CLASS_PTR(Shader)
 class Shader {
 public:
     static ShaderUPtr CreateFromFile(const std::string& filename, GLenum shaderType);
