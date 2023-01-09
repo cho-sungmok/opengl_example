@@ -19,8 +19,8 @@ ExternalProject_Add(
     )
 # Dependency 리스트 및 라이브러리 파일 리스트 추가
 set(DEP_LIST ${DEP_LIST} dep_spdlog)
-#set(DEP_LIBS ${DEP_LIBS} spdlog$<$<CONFIG:Debug>:d>)    # for windows
-set(DEP_LIBS ${DEP_LIBS} spdlog)                       # for mac | ubuntu
+set(DEP_LIBS ${DEP_LIBS} spdlog$<$<CONFIG:Debug>:d>)    # for windows
+#set(DEP_LIBS ${DEP_LIBS} spdlog)                       # for mac | ubuntu
 
 # glfw
 ExternalProject_Add(
@@ -42,16 +42,50 @@ set(DEP_LIBS ${DEP_LIBS} glfw3)
 
 # glad
 ExternalProject_Add(
-dep_glad
-GIT_REPOSITORY "https://github.com/Dav1dde/glad"
-GIT_TAG "v0.1.36"
+    dep_glad
+    GIT_REPOSITORY "https://github.com/Dav1dde/glad"
+    GIT_TAG "v0.1.36"
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
     CMAKE_ARGS
-        -DCMAKE_INSTALL_PREFIX=${DEP_INSTALL_DIR}
-        -DGLAD_INSTALL=ON
+            -DCMAKE_INSTALL_PREFIX=${DEP_INSTALL_DIR}
+            -DGLAD_INSTALL=ON
     TEST_COMMAND ""
     )
 set(DEP_LIST ${DEP_LIST} dep_glad)
 set(DEP_LIBS ${DEP_LIBS} glad)
+
+# stb
+ExternalProject_Add(
+    dep_stb
+    GIT_REPOSITORY "https://github.com/nothings/stb"
+    GIT_TAG "master"
+    GIT_SHALLOW 1
+    UPDATE_COMMAND ""
+    PATCH_COMMAND ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    TEST_COMMAND ""
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy
+        ${PROJECT_BINARY_DIR}/dep_stb-prefix/src/dep_stb/stb_image.h
+        ${DEP_INSTALL_DIR}/include/stb/stb_image.h
+    )
+set(DEP_LIST ${DEP_LIST} dep_stb)
+
+# glm
+ExternalProject_Add(
+    dep_glm
+    GIT_REPOSITORY "https://github.com/g-truc/glm"
+    GIT_TAG "0.9.9.8"
+    GIT_SHALLOW 1
+    UPDATE_COMMAND ""
+    PATCH_COMMAND ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    TEST_COMMAND ""
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_BINARY_DIR}/dep_glm-prefix/src/dep_glm/glm
+        ${DEP_INSTALL_DIR}/include/glm
+    )
+set(DEP_LIST ${DEP_LIST} dep_glm)
