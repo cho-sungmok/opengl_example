@@ -31,7 +31,10 @@
 # 파이썬 설치(https://www.python.org/downloads/)
 
 # ============================================================== 주의 사항
-# target_link_libraries / set(DEP_LIBS ${DEP_LIBS} spdlog 두군데 플랫폼별
+# 3군데 플랫폼별
+# target_link_libraries
+# target_compile_definitions OS=${OS_WINDOW}
+# set(DEP_LIBS ${DEP_LIBS} spdlog 
 
 # ==============================================================
 # 파일열기 처리시 현재 경로를 터미널 경로로 실행(.vscode/settings.json)
@@ -82,14 +85,14 @@ target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 # for windows
 #target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
 # for mac
-target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
-    "-framework OpenGL"
-    "-framework Cocoa"
-    "-framework IOKit"
-    "-framework CoreVideo"
-    )
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS}
+#    "-framework OpenGL"
+#    "-framework Cocoa"
+#    "-framework IOKit"
+#    "-framework CoreVideo"
+#    )
 # for ubuntu
-#target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS} X11)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS} X11)
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
     WINDOW_NAME="${WINDOW_NAME}"
@@ -99,8 +102,8 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
     OS_MAC=${OS_MAC}
     OS_UBUNTU=${OS_UBUNTU}
 #    OS=${OS_WINDOW}
-   OS=${OS_MAC}
-#   OS=${OS_UBUNTU}
+#    OS=${OS_MAC}
+    OS=${OS_UBUNTU}
     )
 
 # Dependency들이 먼저 build 될 수 있게 관계 설정
