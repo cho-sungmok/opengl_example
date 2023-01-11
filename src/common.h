@@ -17,3 +17,4 @@ using klassName ## Ptr = std::shared_ptr<klassName>; \
 using klassName ## WPtr = std::weak_ptr<klassName>;
 
 std::optional<std::string> LoadTextFile(const std::string& filename);
+glm::vec3 GetAttenuationCoeff(float distance);

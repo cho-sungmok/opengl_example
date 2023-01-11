@@ -34,7 +34,17 @@ private:
 	glm::vec4 m_clearColor { glm::vec4(0.1f, 0.2f, 0.3f, 0.0f) };
 
 	struct Light {
-		glm::vec3 position { glm::vec3(3.0f, 3.0f, 3.0f) };
+#if 0// point light
+		glm::vec3 position { glm::vec3(2.0f, 2.0f, 2.0f) };
+		float distance { 32.0f };
+#elif 0// direction light
+		glm::vec3 direction { glm::vec3(-0.2f, -1.0f, -0.3f) };
+#elif 1// point light
+		glm::vec3 position { glm::vec3(2.0f, 2.0f, 2.0f) };
+		float distance { 32.0f };
+		glm::vec3 direction { glm::vec3(-1.0f, -1.0f, -1.0f) };
+		glm::vec2 cutoff { glm::vec2(20.0f, 5.0f) };
+#endif
 		glm::vec3 ambient { glm::vec3(0.1f, 0.1f, 0.1f) };
 		glm::vec3 diffuse { glm::vec3(0.5f, 0.5f, 0.5f) };
 		glm::vec3 specular { glm::vec3(1.0f, 1.0f, 1.0f) };
